@@ -1,18 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Adm
- */
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 
 public class ProdutosDAO {
@@ -23,11 +14,34 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
+      conn = new conectaDAO().connectDB();
+
+        String sql = "INSERT INTO produtos (id, nome, valor, status) VALUES (?, ?, ?, ?)";
         
-        
-        //conn = new conectaDAO().connectDB();
-        
-        
+        try {
+            prep = conn.prepareStatement(sql);
+
+            // Configura os parâmetros da query
+            prep.setInt(1, 0);
+            prep.setString(2, produto.getNome());
+            prep.setInt(3, produto.getValor());
+            prep.setString(4, produto.getStatus());
+
+            // Executa o comando de inserção
+            prep.executeUpdate();
+            System.out.println("Produto cadastrado com sucesso!");
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao cadastrar produto: " + e.getMessage());
+        } finally {
+            // Fecha a conexão e o statement para evitar leaks
+            try {
+                if (prep != null) prep.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
@@ -35,8 +49,5 @@ public class ProdutosDAO {
         return listagem;
     }
     
-    
-    
-        
 }
 
