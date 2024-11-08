@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 public class ProdutosDAO {
@@ -29,17 +30,23 @@ public class ProdutosDAO {
 
             // Executa o comando de inserção
             prep.executeUpdate();
-            System.out.println("Produto cadastrado com sucesso!");
+            String[] opcoes = {"Fechar"};
+            JOptionPane.showOptionDialog(null, "Produto Cadastrado com sucesso!", "Cadastrado!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            
 
         } catch (SQLException e) {
-            System.out.println("Erro ao cadastrar produto: " + e.getMessage());
+            String[] opcoes = {"Fechar"};
+            JOptionPane.showOptionDialog(null, "Erro ao Cadastrar Produto!  " +e.getMessage() , "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, opcoes, opcoes[0]);
+            
         } finally {
             // Fecha a conexão e o statement para evitar leaks
             try {
                 if (prep != null) prep.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+               String[] opcoes = {"Fechar"};
+            JOptionPane.showOptionDialog(null, "Erro ao Fechar Conexão!  " +e.getMessage() , "Erro", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, opcoes, opcoes[0]);
+            
             }
         }
     }
