@@ -132,8 +132,9 @@ public class listagemVIEW extends javax.swing.JFrame {
 
          
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-      
-          try {
+  
+     //vender produto
+        try {
         int id = Integer.parseInt(id_produto_venda.getText());
         ProdutosDAO produtosdao = new ProdutosDAO();
 
@@ -143,7 +144,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "ID inválido. Por favor, insira um número.");
     }
         
-        
+     
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
